@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{  receipe.title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2>{{  receipe.title }}</h2>
+        <div class="subtitle">{{  receipe.difficulty }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>{{  receipe.description }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let ingredient of receipe.ingredients">
+            {{ ingredient.name }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="receipe.ingredients.length > 0">
+      <ion-col text-center>
+        <button 
+          ion-button 
+          clear 
+          (click)="onAddIngredients()">
+          Add Ingredients to Shopping list
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button
+          ion-button
+          outline 
+          block 
+          (click)="onEditReceipe()">
+          Edit Receipe
+        </button>
+      </ion-col>
+      <ion-col>
+        <button 
+          ion-button 
+          color="danger" 
+          outline 
+          block 
+          (click)="onDeleteReceipe()">
+          Delete Receipe
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

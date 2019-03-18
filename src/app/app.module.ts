@@ -5,26 +5,46 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
+import { EditReceipePage } from '../pages/edit-receipe/edit-receipe';
+import { ReceipePage } from '../pages/receipe/receipe';
+import { ReceipesPage } from '../pages/receipes/receipes';
+import { TabsPage } from '../pages/tabs/tabs';
+import { ReceipesService } from '../services/receipes.service';
+import { ShoppingListService } from '../services/shopping-list.service';
+import { RestfulService } from '../services/restful.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    ShoppingListPage,
+    EditReceipePage,
+    ReceipePage,
+    ReceipesPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    ShoppingListPage,
+    EditReceipePage,
+    ReceipePage,
+    ReceipesPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ShoppingListService,
+    ReceipesService,
+    RestfulService
   ]
 })
 export class AppModule {}

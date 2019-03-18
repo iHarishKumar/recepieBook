@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Receipes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+  <ion-list inset>
+    <ion-item 
+    *ngFor="let receipe of receipes; let i = index" 
+    lines="none">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">
+            <button ion-button (click)="onLoadReceipe(i)" clear>
+              <ion-icon name="paper" item-start></ion-icon>
+              {{ receipe.title | uppercase}}
+            </button>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-note>
+            Difficulty : {{ receipe.difficulty }}
+          </ion-note>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-item>
+  </ion-list>
+  <ion-fab bottom right>
+      <button ion-fab icon-only (click) = "onNewReceipe()">
+      <ion-icon name="add"></ion-icon>
+  </button>
+  </ion-fab>
+</ion-content>
+
