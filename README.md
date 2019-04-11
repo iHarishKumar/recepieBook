@@ -33,3 +33,7 @@ If you don't have Android Studio/Xcode, then follow the command to deploy on you
 If you have emulators, then use following commands to emulate on specific platform:
 
 `ionic cordova emulate android/ios`
+
+**Note**:
+I know the spelling is wrong, this was intentional!
+
