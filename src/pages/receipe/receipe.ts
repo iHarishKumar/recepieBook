@@ -20,8 +20,8 @@ export class ReceipePage implements OnInit{
               private receipeService: ReceipesService){}
 
   ngOnInit(){
-    this.receipe = this.navParams.get("receipe");
-    this.index = this.navParams.get("index")
+    this.receipe = this.navParams.get('receipe');
+    this.index = this.navParams.get('index');
     console.log(this.receipe)
   }
 
@@ -30,11 +30,12 @@ export class ReceipePage implements OnInit{
   }
 
   onDeleteReceipe(){
-    this.receipeService.removeReceipe(this.index ,this.receipe.title)
+    //this.receipeService.removeReceipe(this.index ,this.receipe.title)
+    this.receipeService.removeReceipe(this.index)
     this.navCtrl.popToRoot()
   }
 
   onAddIngredients(){
-   this.slService.addItems(this.receipe.ingredients) 
+    this.slService.addItems(this.receipe.ingredients); 
   }
 }

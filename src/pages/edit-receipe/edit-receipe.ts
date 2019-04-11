@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ActionSheetController, AlertController, ToastController, NavController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ReceipesService } from '../../services/receipes.service';
-import { HttpClient } from '@angular/common/http';
 import { Receipe } from '../../models/receipe';
 
 @Component({
@@ -23,10 +22,7 @@ export class EditReceipePage implements OnInit{
     private alrtCtrl: AlertController,
     private toastCtrl: ToastController,
     private receipesService: ReceipesService,
-    private navCtrl: NavController,
-    private httpService: HttpClient){
-      this.receipesService.setHttpClient(httpService)
-    }
+    private navCtrl: NavController) {}
 
   ngOnInit(){
     this.mode = this.navParams.get('mode')

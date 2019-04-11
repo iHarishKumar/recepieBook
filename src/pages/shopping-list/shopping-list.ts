@@ -3,7 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Ingredient } from '../../models/ingredient';
 import { ShoppingListService } from '../../services/shopping-list.service';
 import { RestfulService } from '../../services/restful.service';
-import { HttpClient } from '@angular/common/http';
+import { PopoverController, LoadingController } from 'ionic-angular';
+import { AuthService } from '../../services/auth';
+import { DatabaseOptionsPage } from '../database-option/database-options';
+import { ConnectionService } from '../../services/connection.service';
 
 @Component({
   selector: 'page-shopping-list',
@@ -15,9 +18,10 @@ export class ShoppingListPage {
 
   constructor(private slService: ShoppingListService,
               private restfulService: RestfulService,
-              private httpService: HttpClient){
-                this.restfulService.setHttpClient(httpService)
-              }
+              private popoverCtrl: PopoverController,
+              private authService: AuthService,
+              private loadingCtrl: LoadingController,
+              private connService: ConnectionService){}
 
   onAddItem(form: NgForm){
     console.log(form)
@@ -61,5 +65,62 @@ export class ShoppingListPage {
         console.log(data)
       }
     )
+  }
+
+  //Here it is mouse/just click event.
+  //This will let the app know where to render the popover i.e. binding the popover to the event triggered.
+  onShowOptions(event: MouseEvent){
+    const popover = this.popoverCtrl.create(DatabaseOptionsPage)
+    const loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+    popover.present({ev: event})
+    popover.onDidDismiss( 
+      (data)=>{
+        if(!data){
+          return
+        }
+        if(data.action == 'Load'){
+          loading.present()
+          this.authService.getActiveUser().getIdToken()
+              .then((token: string) => {
+                this.connService.fetchList(token, 'shopping').subscribe(
+                  (list: Ingredient[]) => {
+                    if(list){
+                      this.slService.resetItems(list)
+                      this.listItems = list
+                    } else {
+                      this.slService.resetItems([])
+                      this.listItems = []
+                    }
+                    loading.dismiss()
+                  },
+                  (error) => {
+                    loading.dismiss()
+                    this.connService.handleError(error.json().error)
+                  }
+                )
+              })
+          this.listItems = this.slService.getItems()
+        }
+        else if(data.action == 'Store'){
+          loading.present()
+          this.authService.getActiveUser().getIdToken()
+              .then( (token: string) => {
+                this.connService.storeList(token, 'shopping', this.listItems).subscribe(
+                  ()=>{
+                    loading.dismiss()
+                  },
+                  (error) =>{
+                    loading.dismiss()
+                    console.log( 'error')
+                    this.connService.handleError(error.json().error)
+                  }
+                )
+              })
+              .catch((error) =>{
+              })
+        }
+      })
   }
 }

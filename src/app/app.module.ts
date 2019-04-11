@@ -14,6 +14,12 @@ import { ReceipesService } from '../services/receipes.service';
 import { ShoppingListService } from '../services/shopping-list.service';
 import { RestfulService } from '../services/restful.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
+import { AuthService } from '../services/auth';
+import { HttpModule } from '@angular/http';
+import { DatabaseOptionsPage } from '../pages/database-option/database-options';
+import { ConnectionService } from '../services/connection.service';
 
 @NgModule({
   declarations: [
@@ -22,12 +28,16 @@ import { HttpClientModule } from '@angular/common/http';
     EditReceipePage,
     ReceipePage,
     ReceipesPage,
-    TabsPage
+    TabsPage,
+    SigninPage,
+    SignupPage,
+    DatabaseOptionsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,7 +46,10 @@ import { HttpClientModule } from '@angular/common/http';
     EditReceipePage,
     ReceipePage,
     ReceipesPage,
-    TabsPage
+    TabsPage,
+    SigninPage,
+    SignupPage,
+    DatabaseOptionsPage
   ],
   providers: [
     StatusBar,
@@ -44,7 +57,9 @@ import { HttpClientModule } from '@angular/common/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListService,
     ReceipesService,
-    RestfulService
+    RestfulService,
+    AuthService,
+    ConnectionService
   ]
 })
 export class AppModule {}

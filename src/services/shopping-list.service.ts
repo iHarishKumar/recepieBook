@@ -1,5 +1,8 @@
 import { Ingredient } from "../models/ingredient";
+import 'rxjs/Rx';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ShoppingListService{
     private ingredients : Ingredient[] = []
 
@@ -17,5 +20,9 @@ export class ShoppingListService{
 
     removeItem(index: number){
         this.ingredients.splice(index, 1)
+    }
+
+    resetItems(items: Ingredient[]){
+        this.ingredients = items
     }
 }
